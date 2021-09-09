@@ -1,0 +1,35 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2513
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 SELECT card_holder_id from card_holder;\
+SELECT card_holder_id, date, amount from transactions join card_holder USING (card_holder_id)\
+GROUP BY card_holder_id, date, amount\
+ORDER BY card_holder_id\
+--top 100 transactions between 7am and 9am\
+SELECT * from transactions\
+Where date::time>= '07:00:00'\
+And date::time <= '09:00:00'\
+Order by amount Desc\
+Limit 100;\
+\
+--Count the transactions that are less than $2.00 per cardholder.\
+\
+SELECT * FROM transactions WHERE amount <= '2.00'\
+\
+--Do you see any anomalous transactions that could be fraudulent?\
+--transaction 9, is 100.00 even\
+\
+--Is there a higher number of fraudulent transactions made during this time frame versus the rest of the day?\
+--i dont know\
+\
+--What are the top 5 merchants prone to being hacked using small transactions?\
+SELECT (amount) FROM merchant WHERE transactions <= '2.00'\
+\
+\
+\
+--Is there a higher number of fraudulent transactions made during this time frame versus the rest of the day?\
+--Answer: Not sure if there are a higher number of fraudulent transactions betwen 7am and 9am}
